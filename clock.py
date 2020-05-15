@@ -15,6 +15,5 @@ class Clock_Angle:
         print(angle)
         if angle > 180:
             angle = 360 - angle
-
         return angle
         
