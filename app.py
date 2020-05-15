@@ -2,7 +2,7 @@
 code for calculate angle
 """
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 from clock import Clock_Angle
 app = Flask(__name__)
 
@@ -25,10 +25,11 @@ def home():
     """
     answer = ""
     if "fHour" in request.form and "fMins" in request.form:
-        hour = float(request.form["fHour"])
-        minutes = float(request.form["fMins"])
-        answer = Clock_Angle(hour, minutes).calAngle()
-    return render_template("Home.html", pageData=str(answer))
+        hour = request.form["fHour"]
+        minutes = request.form["fMins"]
+        answer = Clock_Angle(hour, minutes).checkValues()
+    return render_template("Home.html", pageData=json.dumps(answer))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    
